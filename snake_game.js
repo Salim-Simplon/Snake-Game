@@ -84,4 +84,26 @@ function draw() {
   if (d == "RIGHT") snakeX += box;
   if (d == "DOWN") snakeY += box;
 
- 
+  // if the snake eats the food
+  if(snakeX == food.x && snakeY == food.y){
+    score++;
+    
+    food = {
+        x : Math.floor(Math.random()*17+1) * box,
+        y : Math.floor(Math.random()*15+3) * box
+    }
+    // we don't remove the tail
+}
+else{
+    // remove the tail
+    snake.pop();
+}
+
+// add new Head
+
+let newHead = {
+    x : snakeX,
+    y : snakeY
+}
+
+} 
