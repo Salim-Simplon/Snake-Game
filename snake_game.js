@@ -56,6 +56,9 @@ function collision(head, array) {
     if (head.x == array[i].x && head.y == array[i].y) {
       return true;
     }
+  }
+  return false;
+}
 
 // draw everything to the canvas
 
@@ -85,43 +88,47 @@ function draw() {
   if (d == "DOWN") snakeY += box;
 
   // if the snake eats the food
-  if(snakeX == food.x && snakeY == food.y){
+  if (snakeX == food.x && snakeY == food.y) {
     score++;
-    
+
     food = {
-        x : Math.floor(Math.random()*17+1) * box,
-        y : Math.floor(Math.random()*15+3) * box
-    }
+      x: Math.floor(Math.random() * 17 + 1) * box,
+      y: Math.floor(Math.random() * 15 + 3) * box,
+    };
     // we don't remove the tail
-}
-else{
+  } else {
     // remove the tail
     snake.pop();
-}
-
-// add new Head
-
-let newHead = {
-    x : snakeX,
-    y : snakeY
-}
-
-    // game over
-    
-    if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)){
-      clearInterval(game);
   }
-  
+
+  // add new Head
+
+  let newHead = {
+    x: snakeX,
+    y: snakeY,
+  };
+
+  // game over
+
+  if (
+    snakeX < box ||
+    snakeX > 17 * box ||
+    snakeY < 3 * box ||
+    snakeY > 17 * box ||
+    collision(newHead, snake)
+  ) {
+    clearInterval(game);
+  }
+
   snake.unshift(newHead);
 
   // write the score
-  
+
   ctx.fillStyle = "white";
   ctx.font = "45px Changa one";
-  ctx.fillText("Score: "+ score,box,1.5*box);
+  ctx.fillText("Score: " + score, box, 1.5 * box);
 }
 
 // call draw function every 100 ms
 
-let game = setInterval(draw,100);
-
+let game = setInterval(draw, 100);
