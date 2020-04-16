@@ -13,3 +13,10 @@ ground.src =
 const foodImg = new Image();
 foodImg.src =
   "https://cdn2.iconfinder.com/data/icons/mammals-ii/300/10-512.png";
+
+let snake = [];
+
+snake[0] = {
+  x: 9 * box,
+  y: 10 * box,
+};
