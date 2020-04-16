@@ -8,11 +8,11 @@ const box = 32;
 
 const ground = new Image();
 ground.src =
-  "https://www.greengrasswater.com/wp-content/uploads/2017/06/coloration-gazon-1.jpg";
+  "https://s3.amazonaws.com/mk-website-media/wp-content/uploads/2018/10/19000949/Wallpaper-Kemra-ArtificialTurf-1-855x1024.jpg";
 
 const foodImg = new Image();
 foodImg.src =
-  "https://cdn2.iconfinder.com/data/icons/mammals-ii/300/10-512.png";
+  "https://cdn.iconscout.com/icon/premium/png-256-thumb/rat-75-1115916.png";
 
 let snake = [];
 
@@ -65,13 +65,15 @@ function collision(head, array) {
 function draw() {
   ctx.drawImage(ground, 0, 0, 700, 700);
   ctx.strokeStyle = "black";
+  ctx.lineWidth = 6;
   ctx.strokeRect(box, 3 * box, 544, 480);
 
   for (let i = 0; i < snake.length; i++) {
     ctx.fillStyle = i == 0 ? "black" : "white";
     ctx.fillRect(snake[i].x, snake[i].y, box, box);
 
-    ctx.strokeStyle = "red";
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "yellow";
     ctx.strokeRect(snake[i].x, snake[i].y, box, box);
   }
 
@@ -90,6 +92,11 @@ function draw() {
   // if the snake eats the food
   if (snakeX == food.x && snakeY == food.y) {
     score++;
+    
+    let maxScore =  Math.max(score);
+    localStorage.setItem('maxScore', maxScore )
+    
+    console.log(maxScore)
 
     food = {
       x: Math.floor(Math.random() * 17 + 1) * box,
@@ -123,10 +130,11 @@ function draw() {
   snake.unshift(newHead);
 
   // write the score
-
+  let MaxScore = localStorage.getItem('maxScore');
   ctx.fillStyle = "white";
-  ctx.font = "45px Changa one";
-  ctx.fillText("Score: " + score, box, 1.5 * box);
+  ctx.font = "40px Changa one";
+  ctx.fillText("Score: " + score, box, 1.7 * box);
+  ctx.fillText("Best Score: "+MaxScore, 10.5*box, 1.7 * box);
 }
 
 // call draw function every 100 ms
