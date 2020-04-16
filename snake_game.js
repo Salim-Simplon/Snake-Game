@@ -56,6 +56,32 @@ function collision(head, array) {
     if (head.x == array[i].x && head.y == array[i].y) {
       return true;
     }
+
+// draw everything to the canvas
+
+function draw() {
+  ctx.drawImage(ground, 0, 0, 700, 700);
+  ctx.strokeStyle = "black";
+  ctx.strokeRect(box, 3 * box, 544, 480);
+
+  for (let i = 0; i < snake.length; i++) {
+    ctx.fillStyle = i == 0 ? "black" : "white";
+    ctx.fillRect(snake[i].x, snake[i].y, box, box);
+
+    ctx.strokeStyle = "red";
+    ctx.strokeRect(snake[i].x, snake[i].y, box, box);
   }
-  return false;
-}
+
+  ctx.drawImage(foodImg, food.x, food.y, box, box);
+
+  // old head position
+  let snakeX = snake[0].x;
+  let snakeY = snake[0].y;
+
+  // which direction
+  if (d == "LEFT") snakeX -= box;
+  if (d == "UP") snakeY -= box;
+  if (d == "RIGHT") snakeX += box;
+  if (d == "DOWN") snakeY += box;
+
+ 
