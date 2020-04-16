@@ -106,4 +106,22 @@ let newHead = {
     y : snakeY
 }
 
-} 
+    // game over
+    
+    if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)){
+      clearInterval(game);
+  }
+  
+  snake.unshift(newHead);
+
+  // write the score
+  
+  ctx.fillStyle = "white";
+  ctx.font = "45px Changa one";
+  ctx.fillText("Score: "+ score,box,1.5*box);
+}
+
+// call draw function every 100 ms
+
+let game = setInterval(draw,100);
+
